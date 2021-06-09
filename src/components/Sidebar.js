@@ -94,12 +94,14 @@ const StyledAvatar = styled(Avatar)`
 const SidebarBottom = styled.div`
 width: 100%;
 text-align: left;
-padding: 10px;
 border: 1px solid lightgray;
 background-color: #fff;
 border-radius: 10px;
-margin-top: 10px;
-
+margin-top: 5px;
+margin-bottom: 5px;
+> p {
+    margin-left: 5px;
+}
 `
 const SidebarTop = styled.div`
 display: flex;
@@ -125,7 +127,7 @@ background-color: #fff;
  }
 `
 const SidebarContainer = styled.div`
-margin: 10px 10px 10px;
+margin-left: 15px;
 background-color: #f3f2ef;
 display: flex;
 flex-direction: column;
