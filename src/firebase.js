@@ -1,18 +1,16 @@
 import firebase from 'firebase'
 const firebaseConfig = {
-    apiKey: "AIzaSyB6VWMjeH2P4vyZZOqRhGk6S2bX23UNWw8",
-    authDomain: "mario-plan-1730e.firebaseapp.com",
-    projectId: "mario-plan-1730e",
-    storageBucket: "mario-plan-1730e.appspot.com",
-    messagingSenderId: "92140782435",
-    appId: "1:92140782435:web:3fcde6ae6049fddd2d8956",
-    measurementId: "G-P80C28Y6EK"
-  };
-  // Initialize Firebase
-  const firebaseApp = firebase.initializeApp(firebaseConfig);
-  const db = firebaseApp.firestore()
-  const auth = firebase.auth()
-  const provider = new firebase.auth.GoogleAuthProvider()
-  const analytics = firebase.analytics();
+    apiKey: "AIzaSyAkyNyj0Y_B1A84NuIWMNpmRNCBZzeG4lU",
+    authDomain: "cheese-factory-1d829.firebaseapp.com",
+    projectId: "cheese-factory-1d829",
+    storageBucket: "cheese-factory-1d829.appspot.com",
+    messagingSenderId: "56726174975",
+    appId: "1:56726174975:web:66b956ffec7982f071a0ca",
+    measurementId: "G-M7MCVBB7CG"
+};
 
-  export { auth, provider, db, analytics }
+const firebaseApp = firebase.initializeApp(firebaseConfig)
+const db = firebaseApp.firestore()
+const auth = firebase.auth()
+const provider = new firebase.auth.GoogleAuthProvider()
+export { db, auth, provider }

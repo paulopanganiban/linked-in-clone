@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import CreateIcon from '@material-ui/icons/Create'
 import InputOption from './InputOption'
@@ -6,14 +6,52 @@ import SubscriptionsIcon from '@material-ui/icons/Subscriptions';
 import ImageIcon from '@material-ui/icons/Image';
 import EventNoteIcon from '@material-ui/icons/EventNote';
 import ViewDayIcon from '@material-ui/icons/ViewDay';
+import Post from './Post';
+import { db } from '../firebase'
+import firebase from 'firebase'
 function Feed() {
+    const [input, setInput] = useState('')
+    const [posts, setPosts] = useState([])
+    useEffect(() => {
+        // real time listener
+        // directly mapped to post state
+      db.collection('posts')
+      .orderBy('timestamp', 'desc')
+      .onSnapshot(snapshot => (
+          setPosts(snapshot.docs.map(doc => (
+              // using parenthesis in arrow function
+              // means return
+              {
+                  id: doc.id,
+                  data: doc.data()
+              }
+          )))
+      ))
+    }, [])
+    function sendPost(event) {
+        event.preventDefault()
+        db.collection('posts')
+        .add({
+            // add an object
+            name: 'John Paulo Panganiban',
+            description: 'this is a test',
+            message: input,
+            photoUrl: '',
+            timestamp: firebase
+            .firestore
+            .FieldValue
+            .serverTimestamp(),
+        })
+        setInput('')
+    }
     return (
         <FeedContainer>
             <FeedInputContainer>
                 <div className="feed__input">
                     <CreateIcon />
-                    <form>
-                        <input type="text" />
+                    <form onSubmit={sendPost}>
+                        <input type="text" value={input}
+                        onChange={e => setInput(e.target.value)} />
                         <button type="submit">Send</button>
                     </form>
                 </div>
@@ -36,6 +74,15 @@ function Feed() {
                         Icon={ViewDayIcon} />
                 </div>
             </FeedInputContainer>
+            {posts.map(({ id, data: { name, description, message,
+            photoUrl }}) => (
+                <Post 
+                key={id}
+                name={name}
+                description={description}
+                message={message} 
+                photoUrl={photoUrl}/>
+            ))}
         </FeedContainer>
     )
 }
